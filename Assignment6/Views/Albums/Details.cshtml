@@ -1,0 +1,79 @@
+﻿@model Assignment6.Models.AlbumBaseViewModel
+
+@{
+    ViewBag.Title = "Details";
+    var albumName = Model.Name;
+    var albumDate = Model.ReleaseDate.ToLongDateString();
+}
+
+<h2>Album Details: @albumName</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.ReleaseDate)*@
+            @albumDate
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlAlbum)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.UrlAlbum)*@
+            <img src="@Model.UrlAlbum" alt="@Model.Name" style="width:100%; max-width:250px;" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.Summary)*@
+            @Html.Raw(Model.Summary)
+        </dd>
+
+        <div hidden>
+            <dt>
+                @Html.DisplayNameFor(model => model.Coordinator)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Coordinator)
+            </dd>
+        </div>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+
+    @if (User.IsInRole("Clerk"))
+    {
+        @Html.Raw(" | ")
+        @Html.ActionLink("Add Track for this Album", "AddTrack", new { id = Model.Id })
+    }
+
+
+</p>
